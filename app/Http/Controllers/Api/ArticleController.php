@@ -1,14 +1,23 @@
 <?php
 namespace App\Http\Controllers\Api;
 
-use App\Article;
+use App\Models\Article;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
+use App\Repositories\ArticleRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+
+    private $repository;
+
+    public function __construct(ArticleRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +39,7 @@ class ArticleController extends Controller
      */
     public function publishedArticles()
     {
-        return Article::loadAllPublished();
+        return $this->repository->paginate();
     }
 
     /**
