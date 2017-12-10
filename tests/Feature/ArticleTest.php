@@ -56,7 +56,7 @@ class ArticleTest extends TestCase
     }
 
     /** @test */
-    /*public function that_load_only_published_article()
+    public function that_load_only_published_article()
     {
         $this->seedUnpublishedArticles();
 
@@ -68,7 +68,7 @@ class ArticleTest extends TestCase
         $article = Article::loadPublished(16);
 
         $this->assertInstanceOf(Article::class, $article);
-    }*/
+    }
 
     /** @test */
     public function that_article_get_published_and_total_number_of_published_get_changed()
