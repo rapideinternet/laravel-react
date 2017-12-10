@@ -6,11 +6,11 @@
  * Time: 5:02 PM
  */
 
-namespace App\Repositories;
+namespace App\Repositories\Contracts;
 
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 interface RepositoryInterface
@@ -44,12 +44,12 @@ interface RepositoryInterface
     /**
      * fetch by field and value
      *
-     * @param string $field
+     * @param string $attribute
      * @param string $value
      * @param array $columns
      * @return Model
      */
-    public function findBy(string $field, string $value, array $columns = ['*']): Model;
+    public function findBy(string $attribute, string $value, array $columns = ['*']): Model;
 
     /**
      * create a new record
@@ -63,15 +63,23 @@ interface RepositoryInterface
      *
      * @param int $id
      * @param array $data
+     * @return bool
+     */
+    public function update(int $id, array $data): bool;
+
+    /**
+     * Fill data into the model attributes
+     *
+     * @param array $data
      * @return Model
      */
-    public function update(int $id, array $data): Model;
+    public function fill(array $data): Model;
 
     /**
      * Remove a record
      *
      * @param int $id
-     * @return Model
+     * @return int
      */
-    public function delete(int $id): Model;
+    public function delete(int $id): int;
 }

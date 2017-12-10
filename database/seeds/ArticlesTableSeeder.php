@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Article;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ArticlesTableSeeder extends Seeder
@@ -11,8 +13,8 @@ class ArticlesTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = \App\User::where('is_admin', true)->first();
-        factory(App\Article::class, 250)->create([
+        $user = User::where('is_admin', true)->first();
+        factory(Article::class, 250)->create([
             'user_id' => $user->id
         ]);
     }

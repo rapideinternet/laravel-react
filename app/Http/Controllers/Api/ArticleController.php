@@ -1,21 +1,28 @@
 <?php
 namespace App\Http\Controllers\Api;
 
+use App\Repositories\Criteria\LatestCriterion;
+use App\Repositories\Criteria\MineCriterion;
 use App\Models\Article;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 use App\Repositories\ArticleRepository;
+use App\Repositories\Criteria\PublishedCriterion;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class ArticleController extends Controller
 {
 
-    private $repository;
+    private $article;
 
-    public function __construct(ArticleRepository $repository)
+    public function __construct(ArticleRepository $article)
     {
-        $this->repository = $repository;
+        $this->article = $article;
     }
 
     /**
@@ -27,9 +34,9 @@ class ArticleController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->is_admin) {
-            return Article::loadAll();
+            return $this->article->paginate();
         }
-        return Article::loadAllMine($request->user()->id);
+        return $this->article->getByCriteria(new MineCriterion())->paginate();
     }
 
     /**
@@ -39,18 +46,21 @@ class ArticleController extends Controller
      */
     public function publishedArticles()
     {
-        return $this->repository->paginate();
+        return $this->article
+            ->pushCriteria(new LatestCriterion())
+            ->pushCriteria(new PublishedCriterion())
+            ->paginate();
     }
 
     /**
      * Get single published article
      *
-     * @param $id
+     * @param $slug
      * @return mixed
      */
     public function publishedArticle($slug)
     {
-        return Article::loadPublished($slug);
+        return $this->article->getByCriteria(new PublishedCriterion())->findBy('slug', $slug);
     }
 
     /**
@@ -60,7 +70,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return abort(401);
     }
 
     /**
@@ -73,8 +83,10 @@ class ArticleController extends Controller
     {
         $user = $request->user();
 
-        $article = new Article($request->validated());
-        $article->slug = str_slug($request->get('title'));
+        $data = $request->validated();
+        $data['slug'] = str_slug($request->get('title'));
+
+        $article = $this->article->fill($data);
 
         $user->articles()->save($article);
 
@@ -91,10 +103,10 @@ class ArticleController extends Controller
     public function show(Request $request, $id)
     {
         if (!$request->user()->is_admin) {
-            return Article::mine($request->user()->id)->findOrFail($id);
+            $this->article->pushCriteria(new MineCriterion())->find($id);
         }
 
-        return Article::findOrFail($id);
+        return $this->article->find($id);
     }
 
     /**
@@ -105,7 +117,7 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        //
+        return abort(400);
     }
 
     /**
@@ -117,28 +129,38 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, $id)
     {
-        $article = Article::findOrFail($id);
+        $article = $this->article->find($id);
 
         $data = $request->validated();
-        $data['slug'] = str_slug($data['title']);
+        $data['slug'] = str_slug($request->get('title'));
 
-        $article->update($data);
+        if ($this->article->update($id, $data)) {
+            return response()->json($article->fresh(), 200);
+        }
 
-        return response()->json($article, 200);
+        return response()->json(['oops something went wrong!'], 404);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return ResponseFactory|JsonResponse|Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        $article = Article::findOrFail($id);
+        if (!$request->user()) {
+            return response()->json('You are not logged in', 401);
+        }
 
-        $article->delete();
+        $article = $this->article->find($id);
 
-        return response([], 200);
+        if ($article && ($article->id === $request->user()->id || $request->user()->is_admin)) {
+            $this->article->delete($id);
+            return response([], 200);
+        }
+
+        return response([], 400);
     }
 }
