@@ -13,7 +13,7 @@ use App\Repositories\Criteria\Criterion;
 
 /**
  * Class Repository
- * @package Bosnadev\Repositories\Eloquent
+ * @package App\Repositories
  */
 abstract class Repository implements RepositoryInterface, CriterionInterface
 {
@@ -65,7 +65,7 @@ abstract class Repository implements RepositoryInterface, CriterionInterface
     /**
      * Specify Model class name
      *
-     * @return mixed
+     * @return Model
      */
     public abstract function model();
 
@@ -96,6 +96,7 @@ abstract class Repository implements RepositoryInterface, CriterionInterface
     }
 
     /**
+     * Get all records
      * @param array $columns
      * @return Collection
      */
