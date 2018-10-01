@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes React and other libraries. It is a great starting point when
@@ -14,17 +13,17 @@ require('./bootstrap');
  */
 
 import React from "react"
-import { render } from "react-dom"
-import { Provider } from 'react-redux'
+import {render} from "react-dom"
+import {Provider} from 'react-redux'
 import store from './store'
 import Routes from './routes'
 
-import { authCheck } from './modules/auth/store/actions'
+import {authCheck} from './modules/auth/store/actions'
 
 store.dispatch(authCheck())
 
 render((<Provider store={store}>
-    <Routes/>
-  </Provider>),
+        <Routes/>
+    </Provider>),
     document.getElementById('app')
 )

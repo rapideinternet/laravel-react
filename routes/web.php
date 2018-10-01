@@ -11,6 +11,10 @@
 |
 */
 
-Route::get( '/{any}', function () {
+Route::get('/', function () {
     return view('index');
+});
+
+Route::get('/full-react/{any?}', function () {
+    return view('full-react.index');
 })->where('any', '.*');

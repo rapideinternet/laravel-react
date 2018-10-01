@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel 5.7 with React 16 Boilerplate') }}</title>
+    <title>{{ config('app.name', 'Laravel 5.7 with React 16 Boilerplate - Partial react example') }}</title>
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -21,16 +21,7 @@
 </head>
 <body>
 <div id="app">
-    <h1>Rapide react laravel</h1>
-
-    <ul>
-        <li>
-            <a href="/full-react">Full react</a>
-        </li>
-        <li>
-            <a href="/partial-react">Partial react</a>
-        </li>
-    </ul>
+    @yield('content')
 </div>
 
 <!-- Scripts -->
