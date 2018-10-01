@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use GuzzleHttp\Client;
 
 class LoginController extends Controller
 {
@@ -20,7 +20,7 @@ class LoginController extends Controller
         try {
             $http = new Client;
 
-            $response = $http->post(env('APP_URL') . '/oauth/token', [
+            $response = $http->post(env('INTERNAL_URL') . '/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => env('PASSWORD_CLIENT_ID'),

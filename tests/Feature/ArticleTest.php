@@ -2,14 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\Article;
-use App\User;
+use App\Models\Article;
+use App\Models\User;
 use Carbon\Carbon;
-use Symfony\Component\HttpKernel\Tests\Exception\NotFoundHttpExceptionTest;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Symfony\Component\HttpKernel\Tests\Exception\NotFoundHttpExceptionTest;
+use Tests\TestCase;
 
 class ArticleTest extends TestCase
 {

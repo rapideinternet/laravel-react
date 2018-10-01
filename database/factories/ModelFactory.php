@@ -12,7 +12,7 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -26,7 +26,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\Article::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\Article::class, function (Faker\Generator $faker) {
 
     $title = $faker->sentence;
 

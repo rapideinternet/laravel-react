@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 
 class RegisterController extends Controller
 {
@@ -26,7 +26,7 @@ class RegisterController extends Controller
 
             $http = new Client;
 
-            $response = $http->post(env('APP_URL') . '/oauth/token', [
+            $response = $http->post(env('INTERNAL_URL') . '/oauth/token', [
                 'form_params' => [
                     'grant_type' => 'password',
                     'client_id' => env('PASSWORD_CLIENT_ID'),

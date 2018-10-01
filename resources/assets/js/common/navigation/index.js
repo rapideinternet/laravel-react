@@ -16,42 +16,42 @@ class Navigation extends Component {
     user: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
   }
-  
+
   constructor(props) {
     super(props)
-    
+
     this.state = {
       showNavigation: false,
       showDropdown: false,
     }
-  
+
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.logout = this.logout.bind(this);
   }
-  
+
   toggleNavbar() {
     this.setState({
       showNavigation: !this.state.showNavigation,
     });
   }
-  
+
   toggleDropdown() {
     this.setState({
       showDropdown: !this.state.showDropdown,
     })
   }
-  
+
   logout(e) {
     e.preventDefault()
-    
+
     this.props.dispatch(logout())
   }
-  
+
   render() {
     return (
       <Navbar className="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
-        <Link to="/" className="navbar-brand">MOEEN.ME</Link>
+        <Link to="/" className="navbar-brand">Rapide</Link>
         <NavbarToggler className="navbar-toggler d-lg-none" onClick={this.toggleNavbar} />
         {
           this.props.isAuthenticated

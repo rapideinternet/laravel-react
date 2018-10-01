@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Http\Controllers\Api;
 
-use App\Article;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
+use App\Models\Article;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 
@@ -57,7 +58,7 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ArticleRequest  $request
+     * @param  ArticleRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(ArticleRequest $request)
@@ -76,7 +77,7 @@ class ArticleController extends Controller
      * Display the specified resource.
      *
      * @param \Illuminate\Http\Request $request
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, $id)
@@ -91,7 +92,7 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -102,8 +103,8 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  ArticleRequest  $request
-     * @param  int  $id
+     * @param  ArticleRequest $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(ArticleRequest $request, $id)
@@ -120,7 +121,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function delete($id)
