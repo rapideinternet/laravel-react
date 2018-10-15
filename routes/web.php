@@ -18,3 +18,11 @@ Route::get('/', function () {
 Route::get('/full-react/{any?}', function () {
     return view('full-react.index');
 })->where('any', '.*');
+
+Route::get('/partial-react', function () {
+    return view('partial-react.index');
+});
+
+Route::get('/laravel', function () {
+    return view('laravel.index');
+});
