@@ -3,16 +3,16 @@ import ReactDOM from 'react-dom';
 import { Button } from 'antd';
 import "antd/dist/antd.css";
 
-const BLUE = "blue";
-const RED = "red";
-const GREEN = "green";
+const PRIMARY = "primary";
+const DASHED = "dashed";
+const DANGER = "danger";
 
 export default class ReactButton extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            background: props.background
+            type: props.type
         }
     }
 
@@ -21,20 +21,20 @@ export default class ReactButton extends React.Component {
     }
 
     onChangeColour = () => {
-        const {background} = this.state;
-        if (background === BLUE) {
-            this.setState({background: RED});
-        } else if (background === RED) {
-            this.setState({background: GREEN});
+        const {type} = this.state;
+        if (type === PRIMARY) {
+            this.setState({type: DASHED});
+        } else if (type === DASHED) {
+            this.setState({type: DANGER});
         } else {
-            this.setState({background: BLUE});
+            this.setState({type: PRIMARY});
         }
     };
 
     render() {
-        const {background} = this.state;
+        const {type} = this.state;
         return (
-          <Button type="primary" style={{width: 100, background}} onClick={this.onChangeColour}>
+          <Button type={type} style={{width: 100}} onClick={this.onChangeColour}>
               {this.props.text}
           </Button>
         );
@@ -44,6 +44,6 @@ export default class ReactButton extends React.Component {
 if (document.getElementById('foo')) {
     ReactDOM.render(React.createElement(ReactButton, {
         text: "Lorribor",
-        background: GREEN
+        type: PRIMARY
     }), document.getElementById('foo'));
 }
