@@ -11,13 +11,14 @@
     <title>{{ config('app.name', 'Laravel 5.7 with React 16 Boilerplate - Partial react example') }}</title>
 
     <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+{{--    <link href="{{ mix('css/app.css') }}" rel="stylesheet">--}}
     <!-- Scripts -->
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+    <script src="{{ mix('partial.react/js/app.js') }}"></script>
 </head>
 <body>
 <div id="app">
@@ -25,7 +26,11 @@
 </div>
 
 <!-- Scripts -->
-<script src="{{mix('/js/manifest.js')}}"></script>
-<script src="{{mix('/js/vendor.js')}}"></script>
+{{--<script src="{{mix('/js/manifest.js')}}"></script>--}}
+{{--<script src="{{mix('/js/vendor.js')}}"></script>--}}
+<script>
+
+//    window.ReactLoad(document.getElementById('article'))
+</script>
 </body>
 </html>

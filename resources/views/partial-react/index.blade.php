@@ -2,4 +2,8 @@
 
 @section('content')
     <h3>Partial react application</h3>
+
+    @reactComponent('articles', ['articles' => $articles->toArray()])
+
 @endsection
+
