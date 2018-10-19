@@ -29,11 +29,5 @@
 <script src="{{mix('/js/manifest.js')}}"></script>
 <script src="{{mix('/js/vendor.js')}}"></script>
 <script src="{{mix('/js/app2.js')}}"></script>
-<script>
-    window.onload = function() {
-        console.log("test");
-        window.ReactLoad('Blog', document.getElementById("blog"));
-    };
-</script>
 </body>
 </html>
