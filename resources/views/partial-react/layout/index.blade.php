@@ -14,9 +14,7 @@
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <!-- Scripts -->
     <script>
-        window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
+        window.Laravel = {!! json_encode(['csrfToken' => csrf_token()]) !!};
     </script>
 </head>
 <body>
@@ -25,7 +23,12 @@
 </div>
 
 <!-- Scripts -->
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script src="{{mix('/js/manifest.js')}}"></script>
 <script src="{{mix('/js/vendor.js')}}"></script>
+<script src="{{mix('/js/components/button.js')}}"></script>
+@stack('script')
 </body>
 </html>
