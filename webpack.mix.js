@@ -24,6 +24,7 @@ mix.webpackConfig({
   },
 })
 
+mix.react('resources/assets/js/components/*', 'public/js/components');
 mix.react('resources/assets/js/app.js', 'public/js')
   .extract(['react'])
     .sass('resources/assets/sass/app.scss', 'public/css');

@@ -6,6 +6,7 @@ Homestead.json
 Homestead.yaml
 .env
 _ide_helper.php
+package-lock.json
 
 /public/storage
 /public/hot
