@@ -1,4 +1,4 @@
-const { mix } = require('laravel-mix');
+const {mix} = require('laravel-mix');
 const path = require('path')
 /*
  |--------------------------------------------------------------------------
@@ -12,27 +12,32 @@ const path = require('path')
  */
 
 mix.webpackConfig({
-  output: {
-    chunkFilename: 'js/chunks/[name].js'
-  },
-  resolve: {
-    alias : {
-      '@': path.resolve(__dirname, 'resources/assets/js'),
-      'public': path.resolve(__dirname, 'public'),
-      'node': path.resolve(__dirname, 'node'),
+    output: {
+        chunkFilename: 'js/chunks/[name].js'
     },
-  },
+    resolve: {
+        alias: {
+            '@': path.resolve(__dirname, 'resources/assets/js'),
+            'public': path.resolve(__dirname, 'public'),
+            'node': path.resolve(__dirname, 'node'),
+        },
+    },
 })
 
+// mix.react('resources/assets/js/app.js', 'public/js')
+//   .extract(['react'])
+//     .sass('resources/assets/sass/app.scss', 'public/css');
+
 mix.react('resources/assets/js/app.js', 'public/js')
-  .extract(['react'])
-    .sass('resources/assets/sass/app.scss', 'public/css');
+    .extract(['react'])
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .react('resources/assets/js/components/button.js', 'public/js/components')
 
 if (mix.inProduction()) {
-  mix.version()
+    mix.version()
 } else {
-  mix.sourceMaps()
-  mix.browserSync({
-    proxy: 'http://laravel-react.test'
-  })
+    mix.sourceMaps()
+    mix.browserSync({
+        proxy: 'http://laravel-react.test'
+    })
 }

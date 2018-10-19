@@ -1,11 +1,8 @@
 <?php
 
-namespace App\Providers;
+namespace LaravelReact;
 
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
-
-class BladeServiceProvider extends ServiceProvider
+class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
     /**
      * Bootstrap any application services.
@@ -14,9 +11,7 @@ class BladeServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Blade::directive('component', function ($component, $data) {
-
-        });
+        require(__DIR__ . '/Blade/directives.php');
     }
 
     /**
