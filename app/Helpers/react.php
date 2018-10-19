@@ -9,7 +9,7 @@ class React
 
     public function build($name, $data)
     {
-        $id = uniqid($name);
+        $id = uniqid($name."-");
         // String to save the data
         $string = "";
         // Loop through data and save it in the string
@@ -18,9 +18,11 @@ class React
         }
         // Return string
         return "
-            <script>
+            <script id='$id-script'>
                 document.addEventListener('DOMContentLoaded', function() {
                    window.ReactLoad('$name', document.getElementById('$id'));
+                   let script = document.getElementById('$id-script');
+                   script.parentNode.removeChild(script);
                 })
             </script>
             <div id='$id' $string></div>
