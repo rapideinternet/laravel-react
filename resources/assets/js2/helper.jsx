@@ -10,8 +10,11 @@ export function addComponent(string,component){
 const renderComponent = (string, element) => {
     // needs a capital on the first letter to render
     let Component = components[string];
-    console.log(element.dataset);
-    ReactDOM.render(<Component {...(element.dataset)} />, element);
+    if(Component) {
+        ReactDOM.render(<Component {...(element.dataset)} />, element);
+    }else{
+        console.error("React Component met naam '"+string+"' does not exist");
+    }
 }
 
 window.ReactLoad = renderComponent;

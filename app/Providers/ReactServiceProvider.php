@@ -17,7 +17,7 @@ class ReactServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::directive('reactComponent', function ($expression) {
-            return "<?php echo React::build($expression) ?>";
+            return "<?php echo \App\Facades\React::build($expression) ?>";
         });
     }
 
@@ -28,8 +28,8 @@ class ReactServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        app()->bind('React', function (){
-            return new React();
+        app()->singleton('React', function (){
+            return new \App\Helpers\React();
         });
     }
 }
