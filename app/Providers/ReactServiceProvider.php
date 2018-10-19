@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Facades\React;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,9 +16,8 @@ class ReactServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Blade::directive('test', function ($expression) {
-            list($name, $data) = explode(', ', $expression);
-            return "<?php echo '<div id='.{$name}.'></div>' ?>";
+        Blade::directive('reactComponent', function ($expression) {
+            return "<?php echo React::build($expression) ?>";
         });
     }
 
@@ -28,6 +28,8 @@ class ReactServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        app()->bind('React', function (){
+            return new React();
+        });
     }
 }
